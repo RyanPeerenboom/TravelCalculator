@@ -2,7 +2,7 @@
 public class GitTest {
 
 	public static void main(String[] args) {
-		System.out.println("Git is dumb");
+		System.out.println("Git is really fucking dumb");
 
 	}
 
