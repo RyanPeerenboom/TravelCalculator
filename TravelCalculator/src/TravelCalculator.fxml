@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="528.0" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="541.0" minWidth="10.0" prefWidth="286.0" />
@@ -21,14 +21,14 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="Input Currency Amount:" />
-      <Label text="Input Currency Type" GridPane.rowIndex="1" />
-      <Label text="Output Currency Type" GridPane.rowIndex="2" />
-      <TextField GridPane.columnIndex="1" />
-      <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Label text="Output Currency Amount:" GridPane.rowIndex="4" />
-      <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" text="Calculate " GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label id="InputCurrencyFIeldLabel" fx:id="InputCurrencyLabel" text="Input Currency Amount:" />
+      <Label id="InputCurrencyDropdownLabel" fx:id="InputCurrencyDropdownLabel" text="Input Currency Type" GridPane.rowIndex="1" />
+      <Label id="OutputCurrencyDropdownLabel" fx:id="OutputCurrencyDropdownLabel" text="Output Currency Type" GridPane.rowIndex="2" />
+      <TextField id="InputCurrencyField" fx:id="InputCurrencyField" GridPane.columnIndex="1" />
+      <TextField id="OutputCurrencyField" fx:id="OutputCurrencyField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label id="OutputCurrencyFieldLabel" fx:id="OutputCurrencyFieldLabel" text="Output Currency Amount:" GridPane.rowIndex="4" />
+      <ComboBox id="InputCurrencyDropdown" fx:id="InputCurrencyDropdown" minWidth="100.0" onAction="#InputCurrencyPopulate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <ComboBox id="OutputCurrencyDropdown" fx:id="OutputCurrencyDropdown" minWidth="100.0" onAction="#OutputCurrencyPopulate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Button id="CalculateButton" fx:id="CalculateButton" minWidth="100.0" mnemonicParsing="false" onAction="#CalculateClick" text="Calculate " GridPane.columnIndex="1" GridPane.rowIndex="3" />
    </children>
 </GridPane>
