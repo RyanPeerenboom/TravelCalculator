@@ -1,4 +1,6 @@
-
+import javax.money.convert.*;
+import javax.money.*;
+import javax.money.convert.ExchangeRate;
 //class used to manipulate a currency object
 public class Conversion extends Currency{
 	
@@ -15,9 +17,9 @@ public class Conversion extends Currency{
 	//method for assignment of exchangeRateValue;
 	public double exchangeRate() {
 		
-		if (inputCurrency == getBaseCurrency().toString() && outputCurrency ==) {
+		if (inputCurrencyType ==  && outputCurrencyType == ) {
 			  
-			exchangeRate = ;
+			exchangeRate = getExchangeRate();
 			
 		}
 
