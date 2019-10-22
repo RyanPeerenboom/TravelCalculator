@@ -1,23 +1,26 @@
 import javax.money.convert.*;
+
+import java.util.List;
+
 import javax.money.*;
-import javax.money.convert.ExchangeRate;
 //class used to manipulate a currency object
-public class Conversion extends Currency{
+public class Conversion extends Currency implements ExchangeRate, CurrencyConversion{
 	
-	protected double exchangeRate;
+	protected MonetaryAmount exchangeRate;
 	
 	
 	//constructor for conversion object (inherits from currency)
-	public Conversion(double inputCurrencyValue, double outputCurrencyValue, double exchangeRate, String inputCurrencyType, String outputCurrencyType) {
+	public Conversion(MonetaryAmount inputCurrencyValue, MonetaryAmount outputCurrencyValue, MonetaryAmount exchangeRate, CurrencyUnit inputCurrencyType, CurrencyUnit outputCurrencyType) {
 		super(inputCurrencyValue, outputCurrencyValue, inputCurrencyType, outputCurrencyType);
 		
 		this.exchangeRate = exchangeRate;
 	}
 	
+
 	//method for assignment of exchangeRateValue;
-	public double exchangeRate() {
+	public ExchangeRate ExchangeRate() {
 		
-		if (inputCurrencyType ==  && outputCurrencyType == ) {
+		if (inputCurrencyType == getCurrency() && outputCurrencyType == getCurrency()) {
 			  
 			exchangeRate = getExchangeRate();
 			
@@ -42,6 +45,54 @@ public class Conversion extends Currency{
 		
 		return outputCurrencyValue;
 		
+	}
+
+	@Override
+	public ConversionContext getContext() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CurrencyUnit getBaseCurrency() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CurrencyUnit getCurrency() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NumberValue getFactor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ExchangeRate> getExchangeRateChain() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MonetaryAmount apply(MonetaryAmount amount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ExchangeRate getExchangeRate(MonetaryAmount sourceAmount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ExchangeRateProvider getExchangeRateProvider() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
