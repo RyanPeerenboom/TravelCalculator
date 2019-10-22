@@ -15,7 +15,7 @@ public class Conversion extends Currency{
 	//method for assignment of exchangeRateValue;
 	public double exchangeRate() {
 		
-		if (inputCurrency == getBaseCurrency().toString() || outputCurrency ==) {
+		if (inputCurrency == getBaseCurrency().toString() && outputCurrency ==) {
 			  
 			exchangeRate = ;
 			
