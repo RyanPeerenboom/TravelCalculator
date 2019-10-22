@@ -17,7 +17,7 @@ public class TravelCalculator extends Application {
    }
 
    public static void main(String[] args) {
-      // create a TipCalculator object and call its start method
+      // create a Currency Converter object and call its start method
       launch(args); 
    }
 }
