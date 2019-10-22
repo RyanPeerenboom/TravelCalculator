@@ -36,17 +36,17 @@ import javafx.scene.control.TextField;
 
 	    @FXML
 	    void CalculateClick(ActionEvent event) {
-
+	    	
 	    }
 
 	    @FXML
 	    void InputCurrencyPopulate(ActionEvent event) {
-
+	    	
 	    }
 
 	    @FXML
 	    void OutputCurrencyPopulate(ActionEvent event) {
-
+	    	
 	    }
 
 	}
