@@ -20,7 +20,7 @@ public class Conversion extends Currency implements ExchangeRate, CurrencyConver
 	//method for assignment of exchangeRateValue;
 	public ExchangeRate ExchangeRate() {
 		
-		if (inputCurrencyType.equals(getCurrency()) && outputCurrencyType.equals(getCurrency()) ) {
+		if (inputCurrencyType.equals(getBaseCurrency()) && outputCurrencyType.equals(getCurrency()) ) {
 			  
 			exchangeRate = getExchangeRate(inputCurrencyValue);
 			
