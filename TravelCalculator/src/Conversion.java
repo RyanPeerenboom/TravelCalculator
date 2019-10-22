@@ -6,11 +6,11 @@ import javax.money.*;
 //class used to manipulate a currency object
 public class Conversion extends Currency implements ExchangeRate, CurrencyConversion{
 	
-	protected MonetaryAmount exchangeRate;
+	protected ExchangeRate exchangeRate;
 	
 	
 	//constructor for conversion object (inherits from currency)
-	public Conversion(MonetaryAmount inputCurrencyValue, MonetaryAmount outputCurrencyValue, MonetaryAmount exchangeRate, CurrencyUnit inputCurrencyType, CurrencyUnit outputCurrencyType) {
+	public Conversion(MonetaryAmount inputCurrencyValue, MonetaryAmount outputCurrencyValue, ExchangeRate exchangeRate, CurrencyUnit inputCurrencyType, CurrencyUnit outputCurrencyType) {
 		super(inputCurrencyValue, outputCurrencyValue, inputCurrencyType, outputCurrencyType);
 		
 		this.exchangeRate = exchangeRate;
@@ -20,9 +20,9 @@ public class Conversion extends Currency implements ExchangeRate, CurrencyConver
 	//method for assignment of exchangeRateValue;
 	public ExchangeRate ExchangeRate() {
 		
-		if (inputCurrencyType == getCurrency() && outputCurrencyType == getCurrency()) {
+		if (inputCurrencyType.equals(getCurrency()) && outputCurrencyType.equals(getCurrency()) ) {
 			  
-			exchangeRate = getExchangeRate();
+			exchangeRate = getExchangeRate(inputCurrencyValue);
 			
 		}
 
@@ -30,18 +30,18 @@ public class Conversion extends Currency implements ExchangeRate, CurrencyConver
 	}
 	
 	//method for calculation of 'left to right' (divide) conversion
-	public double leftToRightDivide() {
+	public MonetaryAmount leftToRightDivide() {
 		
-		outputCurrencyValue = inputCurrencyValue/exchangeRate;
+		outputCurrencyValue = ;
 		
 		return outputCurrencyValue;
 		
 	}
 	
 	//method for calculation of 'right to left' (multiply) conversion
-	public double rightToLeftMultiply() {
+	public MonetaryAmount rightToLeftMultiply() {
 		
-		outputCurrencyValue = inputCurrencyValue*exchangeRate;
+		outputCurrencyValue = ;
 		
 		return outputCurrencyValue;
 		
