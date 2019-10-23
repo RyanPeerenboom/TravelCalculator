@@ -1,17 +1,17 @@
 import javax.money.*;
 
 //currency class creates currency objects for manipulation by conversion class
-public abstract class Currency implements CurrencySupplier {
+public class Currency {
 	
 	//currency object variables (common to all currency objects)
-	protected MonetaryAmount inputCurrencyValue;
-	protected MonetaryAmount outputCurrencyValue;
-	protected CurrencyUnit inputCurrencyType;
-	protected CurrencyUnit outputCurrencyType;
+	protected double inputCurrencyValue;
+	protected double outputCurrencyValue;
+	protected String inputCurrencyType;
+	protected String  outputCurrencyType;
 	
 	
 	//currency object constructor (4 parameters)
-	public Currency(MonetaryAmount inputCurrencyValue, MonetaryAmount outputCurrencyValue, CurrencyUnit inputCurrencyType, CurrencyUnit outputCurrencyType) {
+	public Currency(double inputCurrencyValue, double outputCurrencyValue, String inputCurrencyType, String outputCurrencyType) {
 		this.inputCurrencyType = inputCurrencyType;
 		this.outputCurrencyType = outputCurrencyType;
 		this.inputCurrencyValue = inputCurrencyValue;
@@ -19,4 +19,3 @@ public abstract class Currency implements CurrencySupplier {
 	
 	}
 	
-}

@@ -1,12 +1,19 @@
 import java.util.List;
+import java.io.IOException;
+import java.net.*;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
+import javax.money.MonetaryAmountFactory;
 import javax.money.NumberValue;
 import javax.money.convert.ConversionContext;
 import javax.money.convert.CurrencyConversion;
 import javax.money.convert.ExchangeRate;
 import javax.money.convert.ExchangeRateProvider;
+
+import org.json.JSONObject;
+
+import com.google.gson.Gson;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +30,7 @@ import javafx.scene.control.TextField;
 			super(inputCurrencyValue, outputCurrencyValue, exchangeRate, inputCurrencyType, outputCurrencyType);
 			
 		}
+		URL x;
 
 	    @FXML
 	    private Label InputCurrencyLabel;
@@ -59,6 +67,10 @@ import javafx.scene.control.TextField;
 	    	String inputCurrencyType = InputCurrencyDropdown.toString();
 	    	String outputCurrencyType = OutputCurrencyDropdown.toString();
 	    	
+	    	
+	    	
+	    	
+	  
 	    	
 	    	
 	    }
