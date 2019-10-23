@@ -15,7 +15,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-	public class Controller extends Conversion implements ExchangeRate, CurrencyConversion{
+	public class Controller extends Conversion {
 		
 		public Controller(MonetaryAmount inputCurrencyValue, MonetaryAmount outputCurrencyValue, ExchangeRate exchangeRate,
 				CurrencyUnit inputCurrencyType, CurrencyUnit outputCurrencyType) {
@@ -74,24 +74,6 @@ import javafx.scene.control.TextField;
 	    }
 
 		@Override
-		public MonetaryAmount apply(MonetaryAmount amount) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public ExchangeRate getExchangeRate(MonetaryAmount sourceAmount) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public ExchangeRateProvider getExchangeRateProvider() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
 		public ConversionContext getContext() {
 			// TODO Auto-generated method stub
 			return null;
@@ -120,6 +102,26 @@ import javafx.scene.control.TextField;
 			// TODO Auto-generated method stub
 			return null;
 		}
+
+		@Override
+		public ExchangeRate getExchangeRate(MonetaryAmount sourceAmount) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public ExchangeRateProvider getExchangeRateProvider() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public MonetaryAmount apply(MonetaryAmount amount) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		
 	    
 	   /* @Override
 		public ExchangeRate getExchangeRate(MonetaryAmount inputCurrencyValue) {
