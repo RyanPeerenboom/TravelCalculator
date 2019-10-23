@@ -3,6 +3,8 @@ import javax.money.*;
 //currency class creates currency objects for manipulation by conversion class
 public class Currency {
 	
+	public static final com.tunyk.currencyconverter.api.Currency USD = null;
+	public static final com.tunyk.currencyconverter.api.Currency EUR = null;
 	//currency object variables (common to all currency objects)
 	protected double inputCurrencyValue;
 	protected double outputCurrencyValue;
@@ -18,4 +20,4 @@ public class Currency {
 		this.outputCurrencyValue = outputCurrencyValue;
 	
 	}
-	
+}
