@@ -175,7 +175,10 @@ import javafx.stage.Stage;
 	    protected void initialize() throws JSONException, IOException {
 	    ArrayList<String> comboBoxValuesInput = new ArrayList<String>();
 	   
-	    	
+	    	InputCurrencyField.setPromptText("Enter Base Value");
+	    	OutputCurrencyField.setPromptText("Converted Value");
+	    	OutputCurrencyDropdown.setPromptText("Select Output Currency Type");
+	    	InputCurrencyDropdown.setPromptText("Select Base Currency Type");
 	    	
 	    	
 	    	
