@@ -3,27 +3,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
+
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ExchangeRates {
+	
+	protected String base;
+	protected String  symbols;
+	public static double exchangeRateMain;
+	
+	
 	
 	 private static String readAll(Reader rd) throws IOException{
 	    	StringBuilder sb = new StringBuilder();
@@ -49,15 +43,29 @@ public class ExchangeRates {
 	    }
 	    	
 	    	}
+	    	public String getBase() {
+	    		return base;
+	    	}
+
+	    	public void setBase(String base) {
+	    		this.base = base;
+	    	}
+
+	    	public String getSymbols() {
+	    		return symbols;
+	    	}
+
+	    	public void setSymbols(String symbols) {
+	    		this.symbols = symbols;
+	    	}
 	    	
-	public static void getExchangeRates() throws IOException, JSONException {
+	public static double getExchangeRates(String base, String symbols) throws IOException, JSONException {
 		
-		String base;
-		String symbols;
-		
+String baseUrl = "http://data.fixer.io/api/latest?access_key=44839b35108b8a92dd3df98b1ab66593";
 		
 		
-		JSONObject json = readJsonFromUrl("http://data.fixer.io/api/latest?access_key=44839b35108b8a92dd3df98b1ab66593&symbols=USD&base=EUR&format=1");
+		
+		JSONObject json = readJsonFromUrl(baseUrl + "&base=" + base + "&symbols=" + symbols);
 
 		JSONArray jsonArr = new JSONArray();
 		jsonArr.put(json);
@@ -66,9 +74,13 @@ public class ExchangeRates {
 			
 			String s = jsonArr.toString();
 			String[] rates = s.split(",");
-			String[] exchangeRatePlusEndBracket = rates[2].toString().split(":");
-			String[] exchangeRateFinal = exchangeRatePlusEndBracket[2].toString().split("}");
-			double exchangeRate = Double.parseDouble(exchangeRateFinal[0].toString());;
+			String[] exchangeRatePlusEndBracket = rates[2].split(":");
+			String exchangeRateFinal = exchangeRatePlusEndBracket[2].replace("}", "");
+			double exchangeRate = Double.parseDouble(exchangeRateFinal);
+			exchangeRateMain = exchangeRate;
 		}	
+		return exchangeRateMain;
 	}
+
+	
 }

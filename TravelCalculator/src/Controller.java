@@ -1,6 +1,12 @@
+import java.util.ArrayList;
 import java.util.List;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.*;
+import java.nio.charset.Charset;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
@@ -11,28 +17,33 @@ import javax.money.convert.CurrencyConversion;
 import javax.money.convert.ExchangeRate;
 import javax.money.convert.ExchangeRateProvider;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-	public class Controller extends Conversion {
+	public class Controller {
 		
-		public Controller(MonetaryAmount inputCurrencyValue, MonetaryAmount outputCurrencyValue, ExchangeRate exchangeRate,
-				CurrencyUnit inputCurrencyType, CurrencyUnit outputCurrencyType) {
-			
-			super(inputCurrencyValue, outputCurrencyValue, exchangeRate, inputCurrencyType, outputCurrencyType);
-			
-		}
-		URL x;
-
-	    @FXML
+		
+		String inputCurrencyType;
+		Double exchangeRate;
+		 ObservableList<String> comboBox;
+		
+		
+	   @FXML
 	    private Label InputCurrencyLabel;
 
 	    @FXML
@@ -51,192 +62,147 @@ import javafx.scene.control.TextField;
 	    private Label OutputCurrencyFieldLabel;
 
 	    @FXML
-	    private ComboBox<?> InputCurrencyDropdown;
+	    private ComboBox<String> InputCurrencyDropdown;
 
 	    @FXML
-	    private ComboBox<?> OutputCurrencyDropdown;
+	    private ComboBox<String> OutputCurrencyDropdown;
 
 	    @FXML
 	    private Button CalculateButton;
-
-	    @FXML
-	    void CalculateClick(ActionEvent event) {
-	    	double InputCurrencyValue = Double.parseDouble(InputCurrencyField.getText());
-	    	/*double outputCurrencyValue = Double.parseDouble(OutputCurrencyField.getText());*/
-	    	
-	    	String inputCurrencyType = InputCurrencyDropdown.toString();
-	    	String outputCurrencyType = OutputCurrencyDropdown.toString();
-	    	
-	    	
-	    	
-	    	
-	  
-	    	
-	    	
-	    }
-
-	    @FXML
-	    void InputCurrencyPopulate(ActionEvent event) {
-	    	
-	    }
-
-	    @FXML
-	    void OutputCurrencyPopulate(ActionEvent event) {
-	    	
-	    }
-
-		@Override
-		public ConversionContext getContext() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public CurrencyUnit getBaseCurrency() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public CurrencyUnit getCurrency() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public NumberValue getFactor() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public List<ExchangeRate> getExchangeRateChain() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public ExchangeRate getExchangeRate(MonetaryAmount sourceAmount) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public ExchangeRateProvider getExchangeRateProvider() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public MonetaryAmount apply(MonetaryAmount amount) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		
 	    
-	   /* @Override
-		public ExchangeRate getExchangeRate(MonetaryAmount inputCurrencyValue) {
-			
-			if (inputCurrencyType.equals(getBaseCurrency()) && outputCurrencyType.equals(getCurrency()) ) {
-				  
-				exchangeRate = getExchangeRate(inputCurrencyValue);
+	    @FXML
+	    private Button ClearButton;
+	    
+	 
+
+	    @FXML
+	    void CalculateClick(ActionEvent event) throws JSONException, IOException {
+	    	
+	    	String a;
+	    	
+	    	
+	    	double InputCurrencyValue = Double.parseDouble(InputCurrencyField.getText());
+	    	double outputCurrencyValue;
+	    	
+	    	double exchangeRate = 0;
+	    	
+	    	
+	    	
+	    	String inputCurrencyType = (String) InputCurrencyDropdown.getValue();
+	    	String outputCurrencyType = (String) OutputCurrencyDropdown.getValue();
+	    	String[] outputCurrencyType1 = outputCurrencyType.split(":");
+	    	String outputCurrencyType2 = outputCurrencyType1[0].replace("\"", "");
+	    			
+	    	
+	    	this.inputCurrencyType = inputCurrencyType;
+	    	
+	    	
+	    	exchangeRate = ExchangeRates.getExchangeRates(inputCurrencyType, outputCurrencyType2);
+	    	
+	    	this.exchangeRate = exchangeRate;
+	    	a = String.valueOf((InputCurrencyValue*exchangeRate));
+	    	OutputCurrencyField.setText(a);
+	    	
+	    	InputCurrencyDropdown.setDisable(true);
+	    	OutputCurrencyDropdown.setDisable(true);
+	   
+	    }
+	    
+	    @FXML
+	    void ClearClick(ActionEvent event) throws IOException {
+	    	
+	    	
+	    	
+	   
+	    	InputCurrencyField.clear();
+	    	OutputCurrencyField.clear();
+	    	OutputCurrencyDropdown.autosize();
+	    	InputCurrencyDropdown.valueProperty().set(null);
+	    	OutputCurrencyDropdown.valueProperty().set(null);
+	    	InputCurrencyDropdown.getItems().removeAll(InputCurrencyDropdown.getItems());
+	    	OutputCurrencyDropdown.getItems().removeAll(OutputCurrencyDropdown.getItems());
+	    	
+	    	
+	    	
+	    	
+	    	OutputCurrencyDropdown.autosize(); 
+	    	
+	    	InputCurrencyDropdown.getItems().addAll(comboBox);
+	    	OutputCurrencyDropdown.setDisable(false);
+	    	InputCurrencyDropdown.setDisable(false);
+
+	    	/*InputCurrencyField.setText("");
+	    	OutputCurrencyField.setText("");
+	    	OutputCurrencyDropdown.getItems().clear();
+	    	InputCurrencyDropdown.getItems().clear();
+	    	
+	    	InputCurrencyDropdown.setDisable(true);
+	    	OutputCurrencyDropdown.setDisable(true);
+	    	
+	    	InputCurrencyDropdown.hide();
+	    	InputCurrencyDropdown.getSelectionModel().clearSelection();
+	    	OutputCurrencyDropdown.hide();
+	    	
+	    	InputCurrencyDropdown.setPrefSize(0, 0);
+	    	OutputCurrencyDropdown.setPrefHeight(0);
+	    	OutputCurrencyDropdown.setPrefWidth(0);*/
+	    	
 				
-			}
-
-			return exchangeRate; 
-		}
-		
-		@Override
-		public CurrencyUnit getBaseCurrency() {
-			
-			return inputCurrencyType;
-		}
-		
-		@Override
-		public CurrencyUnit getCurrency() {
-			
-			return outputCurrencyType;
-		}
-		
-		
-		@Override
-		public MonetaryAmount apply(MonetaryAmount inputCurrencyValue) {
-			
-			
-			
-			
-			
-			return outputCurrencyValue;
-		}
-		
-		
-		@Override
-		public ConversionContext getContext() {
-			
-			return null;
-		}
-
-		
-
-		
-		
-
-		@Override
-		public NumberValue getFactor() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public List<ExchangeRate> getExchangeRateChain() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		
-
-		
-
-		@Override
-		public ExchangeRateProvider getExchangeRateProvider() {
-			// TODO Auto-generated method stub
-			return null;
-		} */
-		
-		
-		
-		
-		
-		
-		
-		//method for calculation of 'left to right' (divide) conversion
-	/*	public MonetaryAmount leftToRightDivide() {
-			
-			
-			outputCurrencyValue = inputCurrencyValue.multiply(getFactor(inputCurrencyValue));
-			
-			return outputCurrencyValue;
-			
-		}
-		
-		*/
-		
-		/* //method for calculation of 'right to left' (multiply) conversion
-		public MonetaryAmount rightToLeftMultiply() {
-			
-			outputCurrencyValue = inputCurrencyValue.multiply((Number) getExchangeRateChain().get(1));
-			
-			return outputCurrencyValue;
-			
-		}
-		*/
-
-		
-
+						
 	}
 
 
-	
+	    @FXML
+	    void InputCurrencySelect(ActionEvent event) throws JSONException, IOException {
+	    	
+	    	OutputCurrencyDropdown.getItems().clear();
+	    	
+	    	 ArrayList<String> comboBoxValuesOutput = new ArrayList<String>();
+	    	 
+	    	 comboBoxValuesOutput = ComboBoxValues.getOutputComboBoxValues(inputCurrencyType);
+	    	 ObservableList<String> comboBoxOutput  =  FXCollections.observableArrayList(comboBoxValuesOutput);
+			OutputCurrencyDropdown.getItems().addAll(comboBoxOutput);
+			
+		}
+	  
+	    
 
+	    @FXML
+	    void OutputCurrencyPopulate(ActionEvent event) {
+	    }
+	    
+	    @FXML 
+	    protected void initialize() throws JSONException, IOException {
+	    ArrayList<String> comboBoxValuesInput = new ArrayList<String>();
+	   
+	    	
+	    	
+	    	
+	    	
+	    	String inputCurrencyTypes = "AED,AFN,ALL,AMD,ANG,AOA,ARS,AUD,AWG,AZN,BAM,BBD,BDT,BGN,BHD,BIF,BMD,BND,BOB,BRL,BSD,BTC,BTN,BWP,"
+					+ "BYN,BYR,BZD,CAD,CDF,CHF,CLF,CLP,CNY,COP,CRC,CUC,CUP,CVE,CZK,DJF,DKK,DOP,DZD,EGP,ERN,ETB,EUR,FJD,FKP,GBP,GEL,GGP,GHS,"
+					+ "GIP,GMD,GNF,GTQ,GYD,HKD,HNL,HRK,HTG,HUF,IDR,ILS,IMP,INR,IQD,IRR,ISK,JEP,JMD,JOD,JPY,KES,KGS,KHR,KMF,KPW,KRW,KWD,KYD,"
+					+ "KZT,LAK,LBP,LKR,LRD,LSL,LTL,LVL,LYD,MAD,MDL,MGA,MKD,MMK,MNT,MOP,MRO,MUR,MVR,MWK,MXN,MYR,MZN,NAD,NGN,NIO,NOK,NPR,NZD,"
+					+ "PAB,PEN,PGK,PHP,PKR,PLN,PYG,QAR,RON,RSD,RUB,RWF,SAR,SBD,SCR,SDG,SEK,SGD,SHP,SLL,SOS,SRD,STD,SVC,SYP,SZL,THB,TJS,TMT,"
+					+ "TND,TOP,TRY,TTD,TWD,TZS,UAH,UGX,USD,UYU,,UZS,VEF,VND,VUV,WST,XAF,XAG,XAU,XCD,XDR,XOF,XPF,YER,ZAR,ZMK,ZMW,ZWL";
+		
+			
+			
+			String[] codes = inputCurrencyTypes.split(",");
+			
 
+			
+			for(int i = 0; i <codes.length; i++) {
+				
+				comboBoxValuesInput.add(codes[i]);
+				
+				
+					
+				}
+			 ObservableList<String> comboBox  =  FXCollections.observableArrayList(comboBoxValuesInput);
+			InputCurrencyDropdown.getItems().addAll(comboBox);
+			this.comboBox = comboBox;
+			
+	    }
+
+	}
