@@ -57,7 +57,7 @@ public class ComboBoxValues{
 
 
 
-		JSONObject json = readJsonFromUrl(apiURL + "USD");
+		JSONObject json = readJsonFromUrl(apiURL + base);
 
 		String jsonOutput = json.toString();
 		String [] outputs = jsonOutput.split(",");
