@@ -1,40 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="806.0"  xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="528.0" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="541.0" minWidth="10.0" prefWidth="286.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="528.0" minWidth="10.0" prefWidth="154.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="541.0" minWidth="10.0" prefWidth="352.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="541.0" minWidth="10.0" prefWidth="286.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label id="InputCurrencyFIeldLabel" fx:id="InputCurrencyLabel" text="Input Currency Amount:" />
-      <Label id="InputCurrencyDropdownLabel" fx:id="InputCurrencyDropdownLabel" text="Input Currency Type" GridPane.rowIndex="1" />
-      <Label id="OutputCurrencyDropdownLabel" fx:id="OutputCurrencyDropdownLabel" text="Output Currency Type" GridPane.rowIndex="2" />
+      <Label id="InputCurrencyFIeldLabel" fx:id="InputCurrencyLabel" text="Input Currency Amount:">
+         <GridPane.margin>
+            <Insets left="8.0" />
+         </GridPane.margin></Label>
+      <Label id="InputCurrencyDropdownLabel" fx:id="InputCurrencyDropdownLabel" text="Input Currency Type" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="8.0" />
+         </GridPane.margin></Label>
+      <Label id="OutputCurrencyDropdownLabel" fx:id="OutputCurrencyDropdownLabel" text="Output Currency Type" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="8.0" />
+         </GridPane.margin></Label>
       <TextField id="InputCurrencyField" fx:id="InputCurrencyField" GridPane.columnIndex="1" />
       <TextField id="OutputCurrencyField" fx:id="OutputCurrencyField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Label id="OutputCurrencyFieldLabel" fx:id="OutputCurrencyFieldLabel" text="Output Currency Amount:" GridPane.rowIndex="4" />
-      <ComboBox id="InputCurrencyDropdown" fx:id="InputCurrencyDropdown" minWidth="100.0" onAction="#InputCurrencySelect" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <ComboBox id="OutputCurrencyDropdown" fx:id="OutputCurrencyDropdown" minWidth="100.0" onAction="#OutputCurrencyPopulate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button id="CalculateButton" fx:id="CalculateButton" minWidth="100.0" mnemonicParsing="false" onAction="#CalculateClick" text="Calculate " GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Button fx:id="ClearButton" minWidth="100.0" mnemonicParsing="false" onAction="#ClearClick" text="Clear" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <Label id="OutputCurrencyFieldLabel" fx:id="OutputCurrencyFieldLabel" text="Output Currency Amount:" GridPane.rowIndex="4">
          <GridPane.margin>
-            <Insets left="110.0" />
+            <Insets left="8.0" />
+         </GridPane.margin></Label>
+      <ComboBox id="InputCurrencyDropdown" fx:id="InputCurrencyDropdown" minWidth="100.0" onAction="#InputCurrencySelect" prefHeight="25.0" prefWidth="163.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+      <ComboBox id="OutputCurrencyDropdown" fx:id="OutputCurrencyDropdown" minWidth="100.0" onAction="#OutputCurrencyPopulate" prefHeight="25.0" prefWidth="163.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <Button id="CalculateButton" fx:id="CalculateButton" minWidth="100.0" mnemonicParsing="false" onAction="#CalculateClick" text="Calculate " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets right="160.0" />
+         </GridPane.margin></Button>
+      <Button fx:id="ClearButton" minWidth="100.0" mnemonicParsing="false" onAction="#ClearClick" text="Clear" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="120.0" />
          </GridPane.margin>
       </Button>
+      <ListView fx:id="pastConversionListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Label fx:id="graphLabel" text="Rate History" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="4.0" />
+         </GridPane.margin>
+      </Label>
+      <Label alignment="CENTER" text="Past Conversions" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="4.0" />
+         </GridPane.margin>
+      </Label>
+      <LineChart fx:id="rateHistoryGraph" prefHeight="170.0" prefWidth="290.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </LineChart>
+      <TextField fx:id="exchangeRateField" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="12.0" />
+         </GridPane.margin>
+      </TextField>
+      <Label text="Exchange Rate" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets left="8.0" />
+         </GridPane.margin>
+         <padding>
+            <Insets bottom="20.0" />
+         </padding>
+      </Label>
    </children>
 </GridPane>

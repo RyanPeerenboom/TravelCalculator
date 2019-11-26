@@ -28,9 +28,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -72,18 +74,36 @@ import javafx.stage.Stage;
 	    @FXML
 	    private Button ClearButton;
 	    
+	    @FXML
+	    private ListView<String> pastConversionListView;
+
+	    @FXML
+	    private Label graphLabel;
+
+	    @FXML
+	    private LineChart<?, ?> rateHistoryGraph;
+	    
+	    private final ObservableList<String> conversions =
+    			FXCollections.observableArrayList();
+	    
+	    
+	    
 	 
 
 	    @FXML
 	    void CalculateClick(ActionEvent event) throws JSONException, IOException {
 	    	
+
 	    	String a;
 	    	
 	    	
 	    	double InputCurrencyValue = Double.parseDouble(InputCurrencyField.getText());
 	    	double outputCurrencyValue;
-	    	
 	    	double exchangeRate = 0;
+	    	
+	    	String InputCurrencyValueString;
+	    	String outputCurrencyValueString;
+	    	String exchangeRateString;
 	    	
 	    	
 	    	
@@ -99,11 +119,22 @@ import javafx.stage.Stage;
 	    	exchangeRate = ExchangeRates.getExchangeRates(inputCurrencyType, outputCurrencyType2);
 	    	
 	    	this.exchangeRate = exchangeRate;
+	    	outputCurrencyValue = InputCurrencyValue*exchangeRate;
 	    	a = String.valueOf((InputCurrencyValue*exchangeRate));
 	    	OutputCurrencyField.setText(a);
 	    	
+	    	InputCurrencyValueString = Double.toString(InputCurrencyValue);
+	    	outputCurrencyValueString = Double.toString(outputCurrencyValue);
+	    	exchangeRateString = Double.toString(exchangeRate);
+	    	
 	    	InputCurrencyDropdown.setDisable(true);
 	    	OutputCurrencyDropdown.setDisable(true);
+	    	
+	    	conversions.add("Input Value: " + InputCurrencyValueString + "	" + "Output Value: " + outputCurrencyValueString + "	" + "Exchange Rate: " + exchangeRateString + "	" + "Input Currency: " + inputCurrencyType + "	" + "Output Currency: " + outputCurrencyType2);
+	    	
+	    	pastConversionListView.setItems(conversions);
+	    	
+	    	
 	   
 	    }
 	    
@@ -170,6 +201,9 @@ import javafx.stage.Stage;
 	    void OutputCurrencyPopulate(ActionEvent event) {
 	    }
 	    
+	    
+	    
+	    //intializes application
 	    @FXML 
 	    protected void initialize() throws JSONException, IOException {
 	    ArrayList<String> comboBoxValuesInput = new ArrayList<String>();
@@ -205,6 +239,10 @@ import javafx.stage.Stage;
 			InputCurrencyDropdown.getItems().addAll(comboBox);
 			this.comboBox = comboBox;
 			
+			
+			
 	    }
+	    
+	   
 
 	}

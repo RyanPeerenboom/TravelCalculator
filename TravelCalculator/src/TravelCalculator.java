@@ -12,7 +12,7 @@ public class TravelCalculator extends Application {
          FXMLLoader.load(getClass().getResource("TravelCalculator.fxml"));
 
       Scene scene = new Scene(root); // attach scene graph to scene
-      stage.setTitle("Currency Converter 3000"); // displayed in window's title bar
+      stage.setTitle("Painter"); // displayed in window's title bar
       stage.setScene(scene); // attach scene to stage
       stage.show(); // display the stage
    }

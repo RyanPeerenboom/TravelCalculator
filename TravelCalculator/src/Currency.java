@@ -1,8 +1,7 @@
 import javax.money.*;
 
 //currency class creates currency objects for manipulation by conversion class
-public abstract class Currency {
-
+public class Currency {
 	
 	//currency object variables (common to all currency objects)
 	protected double inputCurrencyValue;
