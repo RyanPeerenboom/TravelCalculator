@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -27,8 +28,13 @@
       <TextField id="InputCurrencyField" fx:id="InputCurrencyField" GridPane.columnIndex="1" />
       <TextField id="OutputCurrencyField" fx:id="OutputCurrencyField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <Label id="OutputCurrencyFieldLabel" fx:id="OutputCurrencyFieldLabel" text="Output Currency Amount:" GridPane.rowIndex="4" />
-      <ComboBox id="InputCurrencyDropdown" fx:id="InputCurrencyDropdown" minWidth="100.0" onAction="#InputCurrencyPopulate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <ComboBox id="InputCurrencyDropdown" fx:id="InputCurrencyDropdown" minWidth="100.0" onAction="#InputCurrencySelect" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <ComboBox id="OutputCurrencyDropdown" fx:id="OutputCurrencyDropdown" minWidth="100.0" onAction="#OutputCurrencyPopulate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <Button id="CalculateButton" fx:id="CalculateButton" minWidth="100.0" mnemonicParsing="false" onAction="#CalculateClick" text="Calculate " GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Button fx:id="ClearButton" minWidth="100.0" mnemonicParsing="false" onAction="#ClearClick" text="Clear" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="110.0" />
+         </GridPane.margin>
+      </Button>
    </children>
 </GridPane>
