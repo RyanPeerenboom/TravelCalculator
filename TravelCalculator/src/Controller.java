@@ -83,6 +83,9 @@ import javafx.stage.Stage;
 	    @FXML
 	    private LineChart<?, ?> rateHistoryGraph;
 	    
+	    @FXML
+	    private TextField exchangeRateField;
+	    
 	    private final ObservableList<String> conversions =
     			FXCollections.observableArrayList();
 	    
@@ -133,6 +136,7 @@ import javafx.stage.Stage;
 	    	conversions.add("Input Value: " + InputCurrencyValueString + "		" + "Output Value: " + outputCurrencyValueString + "		" + "Exchange Rate: " + exchangeRateString + "		" + "Input Currency: " + inputCurrencyType + "		" + "Output Currency: " + outputCurrencyType2);
 	    	
 	    	pastConversionListView.setItems(conversions);
+	    	exchangeRateField.setText(exchangeRateString);
 	    	
 	    	
 	    }
