@@ -130,12 +130,11 @@ import javafx.stage.Stage;
 	    	InputCurrencyDropdown.setDisable(true);
 	    	OutputCurrencyDropdown.setDisable(true);
 	    	
-	    	conversions.add("Input Value: " + InputCurrencyValueString + "	" + "Output Value: " + outputCurrencyValueString + "	" + "Exchange Rate: " + exchangeRateString + "	" + "Input Currency: " + inputCurrencyType + "	" + "Output Currency: " + outputCurrencyType2);
+	    	conversions.add("Input Value: " + InputCurrencyValueString + "		" + "Output Value: " + outputCurrencyValueString + "		" + "Exchange Rate: " + exchangeRateString + "		" + "Input Currency: " + inputCurrencyType + "		" + "Output Currency: " + outputCurrencyType2);
 	    	
 	    	pastConversionListView.setItems(conversions);
 	    	
 	    	
-	   
 	    }
 	    
 	    @FXML
