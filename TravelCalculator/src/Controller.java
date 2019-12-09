@@ -453,6 +453,8 @@ import java.time.*;
 	    	OutputCurrencyField.setPromptText("Converted Value");
 	    	OutputCurrencyDropdown.setPromptText("Select Output Currency Type");
 	    	InputCurrencyDropdown.setPromptText("Select Base Currency Type");
+	    	exchangeRateField.setFocusTraversable(false);
+	    	pastConversionListView.setFocusTraversable(false);
 	    	
 	    	thirtyDaysRadioButton.setSelected(true);
 	    	
