@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,12 +30,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import java.time.*;
 
 	public class Controller {
 		
@@ -77,11 +81,15 @@ import javafx.stage.Stage;
 	    @FXML
 	    private ListView<String> pastConversionListView;
 
-	    @FXML
-	    private Label graphLabel;
+	   /* @FXML
+	    private Label graphLabel;*/
+	    
+	    
 
 	    @FXML
-	    private LineChart<?, ?> rateHistoryGraph;
+	    private LineChart<String, Number> rateHistoryGraph;
+	    
+	    
 	    
 	    @FXML
 	    private TextField exchangeRateField;
@@ -95,6 +103,24 @@ import javafx.stage.Stage;
 
 	    @FXML
 	    void CalculateClick(ActionEvent event) throws JSONException, IOException {
+	    	
+	    	
+	    	
+	    	double historicalCurrent;
+	    	double historical1MonthAgo;
+	    	double historical2MonthsAgo;
+	    	double historical3MonthsAgo;
+	    	double historical4MonthsAgo;
+	    	double historical5MonthsAgo;
+	    	double historical6MonthsAgo;
+	    	
+	    	LocalDate currentDate = LocalDate.now();
+	    	LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
+	    	LocalDate twoMonthsAgo = LocalDate.now().minusMonths(2);
+	    	LocalDate threeMonthsAgo = LocalDate.now().minusMonths(3);
+	    	LocalDate fourMonthsAgo = LocalDate.now().minusMonths(4);
+	    	LocalDate fiveMonthsAgo = LocalDate.now().minusMonths(5);
+	    	LocalDate sixMonthsAgo = LocalDate.now().minusMonths(6);
 	    	
 
 	    	String a;
@@ -133,11 +159,39 @@ import javafx.stage.Stage;
 	    	InputCurrencyDropdown.setDisable(true);
 	    	OutputCurrencyDropdown.setDisable(true);
 	    	
-	    	conversions.add("Input Value: " + InputCurrencyValueString + "		" + "Output Value: " + outputCurrencyValueString + "		" + "Exchange Rate: " + exchangeRateString + "		" + "Input Currency: " + inputCurrencyType + "		" + "Output Currency: " + outputCurrencyType2);
+	    	conversions.add("Input Value: " + InputCurrencyValueString + "		" + "Output Value: " + outputCurrencyValueString + "		" + 
+	    	"Exchange Rate: " + exchangeRateString + "		" + "Input Currency: " + inputCurrencyType + "		" + "Output Currency: " + outputCurrencyType2);
 	    	
 	    	pastConversionListView.setItems(conversions);
 	    	exchangeRateField.setText(exchangeRateString);
 	    	
+	    	
+	    	historical6MonthsAgo = ExchangeRates.getExchangeRatesHistory(inputCurrencyType, outputCurrencyType2, sixMonthsAgo);
+	    	historical5MonthsAgo = ExchangeRates.getExchangeRatesHistory(inputCurrencyType, outputCurrencyType2, fiveMonthsAgo);
+	    	historical4MonthsAgo = ExchangeRates.getExchangeRatesHistory(inputCurrencyType, outputCurrencyType2, fourMonthsAgo);
+	    	historical3MonthsAgo = ExchangeRates.getExchangeRatesHistory(inputCurrencyType, outputCurrencyType2, threeMonthsAgo);
+	    	historical2MonthsAgo = ExchangeRates.getExchangeRatesHistory(inputCurrencyType, outputCurrencyType2, twoMonthsAgo);
+	    	historical1MonthAgo = ExchangeRates.getExchangeRatesHistory(inputCurrencyType, outputCurrencyType2, oneMonthAgo);
+	    	historicalCurrent = ExchangeRates.getExchangeRatesHistory(inputCurrencyType, outputCurrencyType2, currentDate);	  
+	    	
+	    	ExchangeRateHistory exchangeRateHistory = new ExchangeRateHistory(historical6MonthsAgo, historical5MonthsAgo, historical4MonthsAgo,
+	    			historical3MonthsAgo, historical2MonthsAgo, historical1MonthAgo, historicalCurrent);
+	    	
+	    	rateHistoryGraph.setTitle(inputCurrencyType + " to " + outputCurrencyType2 +  "Exchange Rates History");
+	    	
+	    	
+	    	XYChart.Series dataSeries = new XYChart.Series();
+	    	dataSeries.setName("Rate History");
+	    	
+	    	dataSeries.getData().add(new XYChart.Data("Jun", historical6MonthsAgo));
+	    	dataSeries.getData().add(new XYChart.Data("Jul", historical5MonthsAgo));
+	    	dataSeries.getData().add(new XYChart.Data("Aug", historical4MonthsAgo));
+	    	dataSeries.getData().add(new XYChart.Data("Sep", historical3MonthsAgo));
+	    	dataSeries.getData().add(new XYChart.Data("Oct", historical2MonthsAgo));
+	    	dataSeries.getData().add(new XYChart.Data("Nov", historical1MonthAgo));
+	    	dataSeries.getData().add(new XYChart.Data("Dec", historicalCurrent));
+	    	
+	    	rateHistoryGraph.getData().add(dataSeries);
 	    	
 	    }
 	    
@@ -206,7 +260,7 @@ import javafx.stage.Stage;
 	    
 	    
 	    
-	    //intializes application
+	    //initializes application
 	    @FXML 
 	    protected void initialize() throws JSONException, IOException {
 	    ArrayList<String> comboBoxValuesInput = new ArrayList<String>();

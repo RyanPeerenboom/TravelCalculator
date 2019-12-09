@@ -10,12 +10,19 @@ import java.nio.charset.Charset;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.time.*;
 
 public class ExchangeRates {
 	
+	public static ExchangeRateHistory erh;
+	
 	protected String base;
 	protected String  symbols;
+	protected LocalDate currentDate = LocalDate.now();
+	protected LocalDate oneYearAgo = LocalDate.now().minusYears(1);
+	
 	public static double exchangeRateMain;
+	public static double historicalExchangeRate;
 	
 	
 	
@@ -64,7 +71,7 @@ public class ExchangeRates {
 String baseUrl = "http://data.fixer.io/api/latest?access_key=44839b35108b8a92dd3df98b1ab66593";
 		
 		
-		
+		//makes call to fixer.io and returns exchange rate between input(base) currency and output currency(symbols)
 		JSONObject json = readJsonFromUrl(baseUrl + "&base=" + base + "&symbols=" + symbols);
 
 		JSONArray jsonArr = new JSONArray();
@@ -81,6 +88,31 @@ String baseUrl = "http://data.fixer.io/api/latest?access_key=44839b35108b8a92dd3
 		}	
 		return exchangeRateMain;
 	}
+	
+	public static double getExchangeRatesHistory(String base, String symbols, LocalDate queryDate) throws IOException, JSONException {
+		
+		String baseUrl = "http://data.fixer.io/api/"; 
+		String accessKey = "?access_key=44839b35108b8a92dd3df98b1ab66593";
+				
+				//makes call to fixer.io and returns ExchangeRateHistory object (6 doubles) from input(base) currency and output(symbols) currency
+				JSONObject json = readJsonFromUrl(baseUrl + queryDate + accessKey + "&base=" + base + "&symbols=" + symbols);
+
+				JSONArray jsonArr = new JSONArray();
+				jsonArr.put(json);
+				for (int i = 0; i <jsonArr.length(); i++) {
+					jsonArr.getJSONObject(i);
+					
+					String s = jsonArr.toString();
+					String[] rates = s.split(",");
+					String[] exchangeRatePlusEndBracket = rates[2].split(":");
+					String exchangeRate = exchangeRatePlusEndBracket[2].replace("}", "");
+					historicalExchangeRate = Double.parseDouble(exchangeRate);
+	
+				}	
+				return historicalExchangeRate;
+			}
+	
+	
 
 	
 }

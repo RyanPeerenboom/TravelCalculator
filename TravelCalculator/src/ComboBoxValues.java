@@ -62,10 +62,13 @@ public class ComboBoxValues{
 		String jsonOutput = json.toString();
 		String [] outputs = jsonOutput.split(",");
 			
-
+		
 			
 			for(int i = 0; i < outputs.length; i++) {
-				
+				outputs[i].replace("{", "");
+				outputs[i].replace("\"", "");
+				outputs[i].replace("success", "");
+				outputs[i].replace("true", "");
 				comboBoxValuesOutput.add(outputs[i]);
 				
 			}
