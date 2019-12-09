@@ -58,18 +58,19 @@ public class ComboBoxValues{
 
 
 		JSONObject json = readJsonFromUrl(apiURL + base);
-
+		
 		String jsonOutput = json.toString();
+		
 		String [] outputs = jsonOutput.split(",");
-			
+		
+		
 		
 			
-			for(int i = 0; i < outputs.length; i++) {
-				outputs[i].replace("{", "");
-				outputs[i].replace("\"", "");
-				outputs[i].replace("success", "");
-				outputs[i].replace("true", "");
+			for(int i = 2; i < outputs.length; i++) {
+				
+				
 				comboBoxValuesOutput.add(outputs[i]);
+				
 				
 			}
 			return comboBoxValuesOutput;
